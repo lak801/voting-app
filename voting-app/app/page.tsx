@@ -4,6 +4,21 @@ import { useState } from "react";
 
 export default function Home() {
   const [name, setName] = useState("");
+  function handleSubmit() {
+  fetch('/api/add-user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log("User added!");
+      } else {
+        console.error("Error:", data.error);
+      }
+    });
+}
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div>
@@ -18,8 +33,8 @@ export default function Home() {
         onChange={e => setName(e.target.value)}
         placeholder="Your name"
         />
-        <button className="bg-white text-black rounded w-full mt-[5px] p-[2px]">Submit</button>
-    </div>
+        <button className="bg-white text-black rounded w-full mt-[5px] p-[2px]" onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
     
   );
