@@ -14,6 +14,7 @@ export default function Home() {
     .then(data => {
       if (data.success) {
         console.log("User added!");
+        setName(""); // Clear the input field
       } else {
         console.error("Error:", data.error);
       }
